@@ -1,0 +1,79 @@
+<%- include("./partials/header.ejs") %>
+
+<style>
+    label {
+        padding-top: 30px;
+        margin-bottom: 10px;
+    }
+    .ck{
+        height: 25rem;
+    }
+</style>
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Edit Blog</h1>
+                    <span class="subheading">Edit your blog.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p>Want to make changes to your work? Fill out the form below to edit the blog content on the website!</p>
+                <div class="my-5">
+                    <form action="/edit/<%= post.id %>" method="POST" >
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input class="form-control" name="author" type="text" placeholder="Enter your name..." value="<%= post.author %>" />
+                        </div>
+                        <div class="form-group">
+                            <label>Background Image Link(URL)</label>
+                            <input class="form-control" name="link" placeholder="Enter Background Image URL" type="url">
+                        </div>
+                        <div class="form-group">
+                            <label>Blog Title</label>
+                            <input class="form-control" name="title" placeholder="Enter Blog Title" type="text" value="<%= post.title %>" />
+                        </div>
+                        <div class="form-group">
+                            <label>Blog Subtitle</label>
+                            <input class="form-control" name="subtitle" type="text" placeholder="Enter Blog Subtitle" value="<%= post.subtitle %>" />
+                        </div>
+                        <div class="form-group">
+                            <label>Body</label>
+                            <div id="editor" name="body"><%- post.editorContent %></div>
+                        </div>
+                        <input type="hidden" id="editorContent" name="editorContent"> <!-- Hidden input field to store CKEditor content -->
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                        <script src="https://cdn.ckeditor.com/ckeditor5/41.3.0/classic/ckeditor.js"></script>
+                        <script>
+                            ClassicEditor
+                                .create( document.querySelector( '#editor' ) )
+                                .then( editor => {
+                                    console.log( editor );
+                                    document.querySelector('form').addEventListener('submit', function() {
+                                        // Get the CKEditor content
+                                        const editorContent = editor.getData();
+                                        // Set the value of the hidden input field to the CKEditor content
+                                        document.querySelector('#editorContent').value = editorContent;
+                                    });
+                                })
+                                .catch( error => {
+                                    console.error( error );
+                                });
+                        </script>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include("./partials/footer.ejs") %>
