@@ -14,6 +14,8 @@ http://localhost:3000
 
 
 This is somewhat how your git bash should look like:
+
+
 ![image](https://github.com/HaseebAdnan0/section-26/assets/160724139/e4458f1f-a8c1-40d5-9453-38dcfe46e47e)
 
 First command "cd d:/" goes to D Drive, this might not be necessary.
